@@ -4,6 +4,6 @@ import com.powerup.user_microservice.application.dto.request.UserRequestDto;
 
 public interface IUserHandler {
 
-    void saveUserSeller(UserRequestDto userRequestDto);
+    void saveUser(UserRequestDto userRequestDto);
 
 }

@@ -6,7 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface IUserRolesRepository extends JpaRepository<UserRolesEntity, Long> {
-    Optional<UserRolesEntity> findByUserId(Long id);
-
     Optional<UserRolesEntity> findByUserEmail(String email);
 }

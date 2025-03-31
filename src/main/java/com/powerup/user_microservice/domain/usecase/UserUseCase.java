@@ -15,6 +15,7 @@ import com.powerup.user_microservice.domain.utils.ErrorMessages;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.regex.Pattern;
 
 public class UserUseCase implements IUserServicePort {
 
@@ -27,10 +28,14 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public void saveUserSeller(UserModel userModel) {
+    public void saveUser(UserModel userModel) {
+
+        validateDni(userModel.getDni());
+        validateEmail(userModel.getEmail());
+        validatePhone(userModel.getPhone());
 
         if(userPersistencePort.existUserByEmailOrDni(userModel.getEmail(), userModel.getDni())){
-            throw new UserAlreadyExistsException(ErrorMessages.USER_ALREADY_EXISTS);
+            throw new UserAlreadyExistsException(ErrorMessages.USER_ALREADY_EXISTS, userModel.getEmail(), userModel.getDni());
         }
 
         LocalDate birthDateLocal = userModel.getBirdDate();
@@ -40,7 +45,7 @@ public class UserUseCase implements IUserServicePort {
 
         userModel.setPassword(encryptPort.encryptPassword(userModel.getPassword()));
         UserModel userSaved = userPersistencePort.saveUser(userModel);
-        saveUserRole(userSaved, RoleEnum.SELLER.getId());
+        saveUserRole(userSaved, RoleEnum.ROLE_SELLER.getId());
 
     }
 
@@ -48,7 +53,7 @@ public class UserUseCase implements IUserServicePort {
 
         RolModel rolModel = userPersistencePort.getRolById(rolId);
 
-        if (userModel == null || rolModel.getId() == null) {
+        if (userModel == null || rolModel == null) {
             throw new InvalidUserRoleException(ErrorMessages.INVALID_USER_ROLE);
         }
 
@@ -58,4 +63,21 @@ public class UserUseCase implements IUserServicePort {
 
     }
 
+    private void validateDni(Integer dni) {
+        if (dni == null || !dni.toString().matches(Constants.DNI_REGEX)) {
+            throw new IllegalArgumentException(ErrorMessages.INVALID_DNI_MESSAGE);
+        }
+    }
+
+    private void validateEmail(String email) {
+        if (email == null || !Pattern.matches(Constants.EMAIL_REGEX, email)) {
+            throw new IllegalArgumentException(ErrorMessages.INVALID_EMAIL_MESSAGE);
+        }
+    }
+
+    private void validatePhone(String phone) {
+        if (phone == null || !Pattern.matches(Constants.PHONE_REGEX, phone)) {
+            throw new IllegalArgumentException(ErrorMessages.INVALID_PHONE_MESSAGE);
+        }
+    }
 }
