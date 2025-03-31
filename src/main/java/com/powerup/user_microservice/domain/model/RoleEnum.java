@@ -2,9 +2,9 @@ package com.powerup.user_microservice.domain.model;
 
 public enum RoleEnum {
 
-    ADMIN(1L),
-    SELLER(2L),
-    BUYER(3L);
+    ROLE_ADMIN(1L),
+    ROLE_SELLER(2L),
+    ROLE_BUYER(3L);
 
     private final long id;
 

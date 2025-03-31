@@ -7,5 +7,8 @@ public class Constants {
     }
 
     public static final int AGE_MIN = 18;
+    public static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    public static final String PHONE_REGEX = "\\+?\\d{1,13}";
+    public static final String DNI_REGEX = "\\d+";
 
 }

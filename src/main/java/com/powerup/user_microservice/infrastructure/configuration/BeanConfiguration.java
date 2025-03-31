@@ -36,11 +36,11 @@ public class BeanConfiguration {
 
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort(), encrypterPort());
+        return new UserUseCase(userPersistencePort(), encryptPort());
     }
 
     @Bean
-    public IEncrypterPort encrypterPort() {
+    public IEncrypterPort encryptPort() {
         return new EncrypterAdapter(encoder());
     }
 
