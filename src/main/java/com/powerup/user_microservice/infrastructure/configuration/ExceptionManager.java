@@ -1,6 +1,5 @@
 package com.powerup.user_microservice.infrastructure.configuration;
 
-import com.powerup.user_microservice.domain.exception.InvalidUserRoleException;
 import com.powerup.user_microservice.domain.exception.UserAlreadyExistsException;
 import com.powerup.user_microservice.domain.exception.UserUnderAgeException;
 import org.springframework.http.HttpStatus;
@@ -18,12 +17,6 @@ public class ExceptionManager {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiResponse> illegalArgumentException(IllegalArgumentException e, WebRequest request) {
-        ApiResponse apiResponse = new ApiResponse(e.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidUserRoleException.class)
-    public ResponseEntity<ApiResponse> invalidUserRoleException(InvalidUserRoleException e, WebRequest request) {
         ApiResponse apiResponse = new ApiResponse(e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }

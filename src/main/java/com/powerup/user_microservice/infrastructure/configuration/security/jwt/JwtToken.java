@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.powerup.user_microservice.infrastructure.utils.InfrastructureConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,13 +37,13 @@ public class JwtToken {
         String role = authentication.getAuthorities()
                 .stream()
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Role not found"))
+                .orElseThrow(() -> new RuntimeException(InfrastructureConstants.ROLE_NOT_FOUND))
                 .getAuthority();
 
         return JWT.create()
                 .withIssuer(this.userGeneratedToken)
                 .withSubject(email)
-                .withClaim("role", role)
+                .withClaim(InfrastructureConstants.ROLE_CLAIM, role)
                 .withIssuedAt(new java.util.Date())
                 .withExpiresAt(new java.util.Date(System.currentTimeMillis() + expirationTimeLong))
                 .withJWTId(java.util.UUID.randomUUID().toString())
@@ -63,7 +64,7 @@ public class JwtToken {
                     .verify(token);
 
         } catch (JWTVerificationException e) {
-            throw new JWTVerificationException("Invalid token");
+            throw new JWTVerificationException(InfrastructureConstants.TOKEN_INVALID);
         }
 
     }

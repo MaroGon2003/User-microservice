@@ -31,4 +31,8 @@ public class UserEntity {
 
     private String password;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id", nullable = false)
+    private RolEntity rolEntity;
+
 }

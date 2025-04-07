@@ -1,6 +1,6 @@
 package com.powerup.user_microservice.infrastructure.out.jpa.mapper;
 
-import com.powerup.user_microservice.domain.model.RolModel;
+import com.powerup.user_microservice.domain.model.RoleModel;
 import com.powerup.user_microservice.infrastructure.out.jpa.entity.RolEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -10,6 +10,6 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IRolEntityMapper {
 
-    RolModel toRolModel(RolEntity rolEntity);
+    RoleModel toRolModel(RolEntity rolEntity);
 
 }

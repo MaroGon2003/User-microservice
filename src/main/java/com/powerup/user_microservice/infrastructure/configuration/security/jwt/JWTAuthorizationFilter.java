@@ -1,6 +1,7 @@
 package com.powerup.user_microservice.infrastructure.configuration.security.jwt;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.powerup.user_microservice.infrastructure.utils.InfrastructureConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             DecodedJWT decodedJWT = jwtToken.validateToken(token);
 
             String email = decodedJWT.getSubject();
-            String role = jwtToken.getSpecificClaim(decodedJWT, "role").asString();
+            String role = jwtToken.getSpecificClaim(decodedJWT, InfrastructureConstants.ROLE_CLAIM).asString();
 
             Collection<? extends GrantedAuthority> authorities =
                     Collections.singletonList(new SimpleGrantedAuthority(role));

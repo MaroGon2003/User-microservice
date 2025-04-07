@@ -1,6 +1,6 @@
 package com.powerup.user_microservice.infrastructure.out.jpa.adapter;
 
-import com.powerup.user_microservice.infrastructure.out.jpa.entity.UserRolesEntity;
+import com.powerup.user_microservice.infrastructure.out.jpa.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,22 +12,22 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private final transient UserRolesEntity userRolesEntity;
+    private final transient UserEntity userEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String role = userRolesEntity.getRole().getName().name();
+        String role = userEntity.getRolEntity().getName().name();
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
     @Override
     public String getPassword() {
-        return userRolesEntity.getUser().getPassword();
+        return userEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userRolesEntity.getUser().getEmail();
+        return userEntity.getEmail();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public long getUserId(){
-        return userRolesEntity.getUser().getId();
+        return userEntity.getId();
     }
 
 }
