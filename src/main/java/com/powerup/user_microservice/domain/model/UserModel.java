@@ -13,10 +13,13 @@ public class UserModel {
     private String email;
     private String password;
 
+    private RoleModel roleModel;
+
     public UserModel() {
     }
 
-    public UserModel(Long id, String name, String surName, Integer dni, String phone, LocalDate birdDate, String email, String password) {
+    public UserModel(Long id, String name, String surName, Integer dni, String phone, LocalDate birdDate, String email,
+            String password, RoleModel roleModel) {
         this.id = id;
         this.name = name;
         this.surName = surName;
@@ -25,6 +28,7 @@ public class UserModel {
         this.birdDate = birdDate;
         this.email = email;
         this.password = password;
+        this.roleModel = roleModel;
     }
 
     public Long getId() {
@@ -91,4 +95,11 @@ public class UserModel {
         this.password = password;
     }
 
+    public RoleModel getRoleModel() {
+        return roleModel;
+    }
+
+    public void setRoleModel(RoleModel roleModel) {
+        this.roleModel = roleModel;
+    }
 }

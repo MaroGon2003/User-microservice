@@ -1,15 +1,15 @@
 package com.powerup.user_microservice.domain.model;
 
-public class RolModel {
+public class RoleModel {
 
     private Long id;
     private RoleEnum name;
     private String description;
 
-    public RolModel() {
+    public RoleModel() {
     }
 
-    public RolModel(Long id, RoleEnum name, String description) {
+    public RoleModel(Long id, RoleEnum name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;

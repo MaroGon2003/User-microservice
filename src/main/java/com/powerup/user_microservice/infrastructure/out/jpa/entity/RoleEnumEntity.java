@@ -4,6 +4,5 @@ public enum RoleEnumEntity {
 
     ROLE_ADMIN,
     ROLE_SELLER,
-    ROLE_BUYER
 
 }
