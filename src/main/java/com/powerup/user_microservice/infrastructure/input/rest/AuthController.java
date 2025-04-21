@@ -31,7 +31,8 @@ public class AuthController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_200, description = InfrastructureConstants.AUTH_RESPONSE_200_DESCRIPTION),
-            @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_400, description = InfrastructureConstants.AUTH_RESPONSE_400_DESCRIPTION),
+            @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_401, description = InfrastructureConstants.AUTH_RESPONSE_401_DESCRIPTION),
+            @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_423, description = InfrastructureConstants.AUTH_RESPONSE_423_DESCRIPTION),
             @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_500, description = InfrastructureConstants.AUTH_RESPONSE_500_DESCRIPTION)
     })
     @GetMapping(InfrastructureConstants.AUTH_LOGIN_ENDPOINT)

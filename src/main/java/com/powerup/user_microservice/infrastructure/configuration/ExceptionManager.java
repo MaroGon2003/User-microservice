@@ -1,5 +1,7 @@
 package com.powerup.user_microservice.infrastructure.configuration;
 
+import com.powerup.user_microservice.domain.exception.AccountLockedException;
+import com.powerup.user_microservice.domain.exception.InvalidCredentialsException;
 import com.powerup.user_microservice.domain.exception.UserAlreadyExistsException;
 import com.powerup.user_microservice.domain.exception.UserUnderAgeException;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,18 @@ public class ExceptionManager {
     public ResponseEntity<ApiResponse> userUnderAgeException(UserUnderAgeException e, WebRequest request) {
         ApiResponse apiResponse = new ApiResponse(e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccountLockedException.class)
+    public ResponseEntity<ApiResponse> accountLockedException(AccountLockedException e, WebRequest request) {
+        ApiResponse apiResponse = new ApiResponse(e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(apiResponse, HttpStatus.LOCKED);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ApiResponse> invalidCredentialsException(InvalidCredentialsException e, WebRequest request) {
+        ApiResponse apiResponse = new ApiResponse(e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(apiResponse, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -1,9 +1,9 @@
 package com.powerup.user_microservice.infrastructure.configuration;
 
+import com.powerup.user_microservice.domain.api.IAuthServicePort;
 import com.powerup.user_microservice.domain.api.IUserServicePort;
-import com.powerup.user_microservice.domain.spi.IEncrypterPort;
-import com.powerup.user_microservice.domain.spi.IRoleInterceptorPort;
-import com.powerup.user_microservice.domain.spi.IUserPersistencePort;
+import com.powerup.user_microservice.domain.spi.*;
+import com.powerup.user_microservice.domain.usecase.AuthUseCase;
 import com.powerup.user_microservice.domain.usecase.UserUseCase;
 import com.powerup.user_microservice.infrastructure.configuration.security.jwt.JwtToken;
 import com.powerup.user_microservice.infrastructure.out.encrypter.EncrypterAdapter;
@@ -29,6 +29,8 @@ public class BeanConfiguration {
     private final IRolRepository rolRepository;
     private final IRolEntityMapper rolEntityMapper;
 
+    private final IUserValidationPort validationPort;
+    private final ILoginAttemptPersistencePort loginAttemptPersistencePort;
     private final HttpServletRequest request;
     private final JwtToken jwtToken;
 
@@ -55,6 +57,11 @@ public class BeanConfiguration {
     @Bean
     public IRoleInterceptorPort roleInterceptorPort() {
         return new RoleInterceptorAdapter(request,jwtToken);
+    }
+
+    @Bean
+    public IAuthServicePort authServicePort() {
+        return new AuthUseCase(validationPort, loginAttemptPersistencePort);
     }
 
 }
