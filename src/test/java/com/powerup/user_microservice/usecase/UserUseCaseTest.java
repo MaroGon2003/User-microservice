@@ -43,6 +43,7 @@ class UserUseCaseTest {
         when(userPersistencePort.existUserByEmailOrDni(userModel.getEmail(), userModel.getDni())).thenReturn(false);
         when(encryptPort.encryptPassword(userModel.getPassword())).thenReturn("encryptedPassword");
         when(userPersistencePort.getRolById(RoleEnum.ROLE_SELLER.getId())).thenReturn(new RoleModel(RoleEnum.ROLE_SELLER.getId(), RoleEnum.ROLE_SELLER, "Seller role"));
+        when(roleInterceptorPort.jwtExists()).thenReturn(true);
         when(roleInterceptorPort.isAdmin()).thenReturn(true);
 
         // Act
@@ -116,10 +117,30 @@ class UserUseCaseTest {
     void When_SaveUserWithInvalidRole_Expect_IllegalArgumentException() {
         // Arrange
         UserModel userModel = UserTestDataFactory.createValidUser();
+        when(roleInterceptorPort.jwtExists()).thenReturn(true);
         when(roleInterceptorPort.isAdmin()).thenReturn(false);
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> userUseCase.saveUser(userModel));
+    }
+
+    @Test
+    void When_UserBuyer_Expect_Success() {
+        // Arrange
+        UserModel userModel = UserTestDataFactory.createValidUser();
+        when(userPersistencePort.existUserByEmailOrDni(userModel.getEmail(), userModel.getDni())).thenReturn(false);
+        when(encryptPort.encryptPassword(userModel.getPassword())).thenReturn("encryptedPassword");
+        when(userPersistencePort.getRolById(RoleEnum.ROLE_BUYER.getId())).thenReturn(new RoleModel(RoleEnum.ROLE_BUYER.getId(), RoleEnum.ROLE_BUYER, "Buyer role"));
+        when(roleInterceptorPort.jwtExists()).thenReturn(false);
+
+        // Act
+        userUseCase.saveUser(userModel);
+
+        // Assert
+        verify(userPersistencePort).existUserByEmailOrDni(userModel.getEmail(), userModel.getDni());
+        verify(encryptPort).encryptPassword("password");
+        verify(userPersistencePort).saveUser(userModel);
+        verify(userPersistencePort).getRolById(RoleEnum.ROLE_BUYER.getId());
     }
 
 }

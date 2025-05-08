@@ -36,4 +36,10 @@ public class RoleInterceptorAdapter  implements IRoleInterceptorPort {
         String role = getRoleName();
         return InfrastructureConstants.ROLE_SELLER.equals(role);
     }
+
+    @Override
+    public boolean jwtExists() {
+        String token = request.getHeader(InfrastructureConstants.AUTHORIZATION_HEADER);
+        return token != null && token.startsWith(InfrastructureConstants.BEARER_PREFIX);
+    }
 }

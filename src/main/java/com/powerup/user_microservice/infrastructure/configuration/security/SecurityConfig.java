@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**",
                                 "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/user").hasRole("ADMIN")
+                        .requestMatchers("/user").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
