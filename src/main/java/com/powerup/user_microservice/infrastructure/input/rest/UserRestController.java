@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+@RestController
 @RequestMapping(InfrastructureConstants.USER_REQUEST_MAPPING)
 @RequiredArgsConstructor
 @Tag(name = InfrastructureConstants.USER_TAG_NAME, description = InfrastructureConstants.USER_TAG_DESCRIPTION)
@@ -33,5 +34,6 @@ public class UserRestController {
         userHandler.saveUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-}
+
+ }
 

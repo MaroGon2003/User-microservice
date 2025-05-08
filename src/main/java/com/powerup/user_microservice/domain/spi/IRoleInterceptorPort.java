@@ -7,4 +7,6 @@ public interface IRoleInterceptorPort {
     boolean isAdmin();
 
     boolean isSeller();
+
+    boolean jwtExists();
 }

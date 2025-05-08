@@ -46,10 +46,16 @@ public class UserUseCase implements IUserServicePort {
 
         userModel.setPassword(encryptPort.encryptPassword(userModel.getPassword()));
 
-        if(roleInterceptorPort.isAdmin()) {
-            userModel.setRoleModel(userPersistencePort.getRolById(RoleEnum.ROLE_SELLER.getId()));
-        }else{
-            throw new IllegalArgumentException(DomainConstants.INVALID_USER_ROLE);
+        if(roleInterceptorPort.jwtExists()){
+
+            if(roleInterceptorPort.isAdmin()) {
+                userModel.setRoleModel(userPersistencePort.getRolById(RoleEnum.ROLE_SELLER.getId()));
+            }else{
+                throw new IllegalArgumentException(DomainConstants.INVALID_USER_ROLE);
+            }
+
+        } else{
+            userModel.setRoleModel(userPersistencePort.getRolById(RoleEnum.ROLE_BUYER.getId()));
         }
 
         userPersistencePort.saveUser(userModel);

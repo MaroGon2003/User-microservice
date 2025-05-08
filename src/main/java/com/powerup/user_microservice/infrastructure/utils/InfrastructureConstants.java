@@ -11,6 +11,8 @@ public class InfrastructureConstants {
     public static final String RESPONSE_CODE_201 = "201";
     public static final String RESPONSE_CODE_400 = "400";
     public static final String RESPONSE_CODE_500 = "500";
+    public static final String RESPONSE_CODE_401 = "401";
+    public static final String RESPONSE_CODE_423 = "423";
 
     // User controller
     public static final String USER_REQUEST_MAPPING = "/user";
@@ -29,9 +31,10 @@ public class InfrastructureConstants {
     public static final String AUTH_OPERATION_SUMMARY = "Login";
     public static final String AUTH_OPERATION_DESCRIPTION = "Endpoint for user login";
     public static final String AUTH_RESPONSE_200_DESCRIPTION = "Login successful";
-    public static final String AUTH_RESPONSE_400_DESCRIPTION = "Invalid credentials";
     public static final String AUTH_RESPONSE_500_DESCRIPTION = "Internal server error";
     public static final String AUTH_LOGIN_ENDPOINT = "/login";
+    public static final String AUTH_RESPONSE_401_DESCRIPTION = "Unauthorized";
+    public static final String AUTH_RESPONSE_423_DESCRIPTION = "Account locked due to too many failed login attempts";
 
 
     // Role Interceptor constants
@@ -47,4 +50,11 @@ public class InfrastructureConstants {
     public static final String USER_NOT_FOUND = "User not found with email: ";
     public static final String ROLE_NOT_FOUND = "Role not found";
     public static final String TOKEN_INVALID = "Token is invalid";
+
+
+    /// Login attempt constants
+    public static final int DEFAULT_ATTEMPTS = 0;
+    public static final int MAX_ATTEMPTS = 3;
+    public static final int INCREMENT_STEP = 1;
+
 }

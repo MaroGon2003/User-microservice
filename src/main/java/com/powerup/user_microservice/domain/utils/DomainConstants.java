@@ -20,4 +20,11 @@ public class DomainConstants {
     public static final String INVALID_PHONE_MESSAGE = "Invalid phone format";
     public static final String INVALID_DNI_MESSAGE = "DNI must be numeric";
 
+
+    //LOGIN ----------------------------------------------------------------
+    public static final String ACCOUNT_LOCKED_MESSAGE = "Account: %s is locked due to too many failed login attempts";
+    public static final String INVALID_CREDENTIALS_MESSAGE = "Invalid email or password";
+
+    public static final int MAX_ATTEMPTS = 3;
+
 }
