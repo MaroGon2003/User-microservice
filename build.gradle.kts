@@ -49,6 +49,9 @@ dependencies {
 	// JWT
 	implementation("com.auth0:java-jwt:4.4.0")
 
+	//Feign
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
+
 }
 
 tasks.withType<Test> {

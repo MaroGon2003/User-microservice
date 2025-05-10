@@ -6,4 +6,6 @@ public interface IUserHandler {
 
     void saveUser(UserRequestDto userRequestDto);
 
+    Long getUserIdByEmail(String email);
+
 }

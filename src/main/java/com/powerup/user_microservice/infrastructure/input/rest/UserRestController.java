@@ -35,5 +35,19 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @GetMapping(InfrastructureConstants.USER_GET_ID_BY_EMAIL_ENDPOINT)
+    @Operation(
+            summary = InfrastructureConstants.USER_GET_ID_BY_EMAIL_SUMMARY,
+            description = InfrastructureConstants.USER_GET_ID_BY_EMAIL_DESCRIPTION
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_200, description = InfrastructureConstants.USER_GET_ID_BY_EMAIL_RESPONSE_200_DESCRIPTION),
+            @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_400, description = InfrastructureConstants.USER_GET_ID_BY_EMAIL_RESPONSE_400_DESCRIPTION),
+            @ApiResponse(responseCode = InfrastructureConstants.RESPONSE_CODE_404, description = InfrastructureConstants.USER_GET_ID_BY_EMAIL_RESPONSE_404_DESCRIPTION)
+    })
+    public ResponseEntity<Long> getUserIdByEmail(@RequestParam String email) {
+        return ResponseEntity.ok(userHandler.getUserIdByEmail(email));
+    }
+
  }
 
