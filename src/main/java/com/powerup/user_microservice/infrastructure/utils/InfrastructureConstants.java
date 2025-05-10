@@ -13,6 +13,7 @@ public class InfrastructureConstants {
     public static final String RESPONSE_CODE_500 = "500";
     public static final String RESPONSE_CODE_401 = "401";
     public static final String RESPONSE_CODE_423 = "423";
+    public static final String RESPONSE_CODE_404 = "404";
 
     // User controller
     public static final String USER_REQUEST_MAPPING = "/user";
@@ -23,6 +24,12 @@ public class InfrastructureConstants {
     public static final String USER_RESPONSE_201_DESCRIPTION = "User created successfully";
     public static final String USER_RESPONSE_400_DESCRIPTION = "Invalid request body";
     public static final String USER_RESPONSE_500_DESCRIPTION = "Internal server error";
+    public static final String USER_GET_ID_BY_EMAIL_ENDPOINT = "/get-id-by-email";
+    public static final String USER_GET_ID_BY_EMAIL_SUMMARY = "Get User ID by Email";
+    public static final String USER_GET_ID_BY_EMAIL_DESCRIPTION = "Retrieve the user ID based on the provided email.";
+    public static final String USER_GET_ID_BY_EMAIL_RESPONSE_200_DESCRIPTION = "User ID retrieved successfully.";
+    public static final String USER_GET_ID_BY_EMAIL_RESPONSE_400_DESCRIPTION = "Invalid email format.";
+    public static final String USER_GET_ID_BY_EMAIL_RESPONSE_404_DESCRIPTION = "User not found.";
 
     // Auth controller
     public static final String AUTH_REQUEST_MAPPING = "/auth";

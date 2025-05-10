@@ -9,6 +9,8 @@ import com.powerup.user_microservice.infrastructure.out.jpa.repository.IRolRepos
 import com.powerup.user_microservice.infrastructure.out.jpa.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class UserJpaAdapter implements IUserPersistencePort {
 
@@ -34,4 +36,9 @@ public class UserJpaAdapter implements IUserPersistencePort {
         return userRepository.existsByEmailOrDni(email, dni);
     }
 
+    @Override
+    public Optional<UserModel> getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(userEntityMapper::toUserModel);
+    }
 }

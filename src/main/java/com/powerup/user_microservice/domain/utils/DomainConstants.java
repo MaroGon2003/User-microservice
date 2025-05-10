@@ -19,6 +19,7 @@ public class DomainConstants {
     public static final String INVALID_EMAIL_MESSAGE = "Invalid email format";
     public static final String INVALID_PHONE_MESSAGE = "Invalid phone format";
     public static final String INVALID_DNI_MESSAGE = "DNI must be numeric";
+    public static final String USER_NOT_FOUND = "User not found with email";
 
 
     //LOGIN ----------------------------------------------------------------

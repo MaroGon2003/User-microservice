@@ -62,6 +62,18 @@ public class UserUseCase implements IUserServicePort {
 
     }
 
+    @Override
+    public Long getUserIdByEmail(String email) {
+        if (email == null || !Pattern.matches(DomainConstants.EMAIL_REGEX, email)) {
+            throw new IllegalArgumentException(DomainConstants.INVALID_EMAIL_MESSAGE);
+        }
+
+        UserModel user = userPersistencePort.getUserByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException(DomainConstants.USER_NOT_FOUND));
+
+        return user.getId();
+    }
+
     private void validateDni(Integer dni) {
         if (dni == null || !dni.toString().matches(DomainConstants.DNI_REGEX)) {
             throw new IllegalArgumentException(DomainConstants.INVALID_DNI_MESSAGE);

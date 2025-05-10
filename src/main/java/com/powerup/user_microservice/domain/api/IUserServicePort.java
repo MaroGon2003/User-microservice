@@ -6,4 +6,6 @@ public interface IUserServicePort {
 
     void saveUser(UserModel userModel);
 
+    Long getUserIdByEmail(String email);
+
 }

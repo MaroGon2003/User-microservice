@@ -9,6 +9,7 @@ import com.powerup.user_microservice.domain.spi.IEncrypterPort;
 import com.powerup.user_microservice.domain.spi.IRoleInterceptorPort;
 import com.powerup.user_microservice.domain.spi.IUserPersistencePort;
 import com.powerup.user_microservice.domain.usecase.UserUseCase;
+import com.powerup.user_microservice.domain.utils.DomainConstants;
 import com.powerup.user_microservice.usecase.factory.UserTestDataFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -141,6 +145,55 @@ class UserUseCaseTest {
         verify(encryptPort).encryptPassword("password");
         verify(userPersistencePort).saveUser(userModel);
         verify(userPersistencePort).getRolById(RoleEnum.ROLE_BUYER.getId());
+    }
+
+    @Test
+    void When_ValidEmail_Expect_ReturnUserId() {
+        // Arrange
+        String email = "test@example.com";
+        UserModel userModel = new UserModel();
+        userModel.setId(1L);
+        userModel.setEmail(email);
+
+        when(userPersistencePort.getUserByEmail(email)).thenReturn(Optional.of(userModel));
+
+        // Act
+        Long userId = userUseCase.getUserIdByEmail(email);
+
+        // Assert
+        assertEquals(1L, userId);
+    }
+
+    @Test
+    void When_InvalidEmailFormat_Expect_IllegalArgumentException() {
+        // Arrange
+        String invalidEmail = "invalid-email";
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userUseCase.getUserIdByEmail(invalidEmail));
+        assertEquals(DomainConstants.INVALID_EMAIL_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    void When_NullEmail_Expect_IllegalArgumentException() {
+        // Arrange
+        String nullEmail = null;
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userUseCase.getUserIdByEmail(nullEmail));
+        assertEquals(DomainConstants.INVALID_EMAIL_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    void When_UserNotFound_Expect_IllegalArgumentException() {
+        // Arrange
+        String email = "notfound@example.com";
+
+        when(userPersistencePort.getUserByEmail(email)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userUseCase.getUserIdByEmail(email));
+        assertEquals(DomainConstants.USER_NOT_FOUND, exception.getMessage());
     }
 
 }

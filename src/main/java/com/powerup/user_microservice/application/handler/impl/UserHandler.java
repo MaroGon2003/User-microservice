@@ -20,4 +20,9 @@ public class UserHandler implements IUserHandler {
         userServicePort.saveUser(userRequestMapper.toUserModel(userRequestDto));
 
     }
+
+    @Override
+    public Long getUserIdByEmail(String email) {
+        return userServicePort.getUserIdByEmail(email);
+    }
 }
