@@ -47,8 +47,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**",
                                 "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/user/get-id-by-email").permitAll()
                         .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/user").permitAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtEntryPoint))
